@@ -1,1 +1,1 @@
-# Scraper.PlayStationPlus
+# Scraper-PlayStationPlus
