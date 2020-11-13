@@ -82,6 +82,7 @@ namespace FreeGameIsAFreeGame.Scraper.PlayStationPlus
                 Availability availability = plusUserSku.Availability;
                 Deal freeGame = new Deal()
                 {
+                    Discount = 100,
                     Image = included.Attributes.ThumbnailUrlBase,
                     Link = $"https://store.playstation.com/en-us/product/{included.Attributes.DefaultSkuId}",
                     Title = included.Attributes.Name,
