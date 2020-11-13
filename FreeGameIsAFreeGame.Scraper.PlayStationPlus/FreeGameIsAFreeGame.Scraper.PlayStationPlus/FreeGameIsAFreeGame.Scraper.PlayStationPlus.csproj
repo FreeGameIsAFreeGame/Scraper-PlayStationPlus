@@ -8,7 +8,7 @@
         <PackageProjectUrl>https://github.com/FreeGameIsAFreeGame/Scraper-PlayStationPlus</PackageProjectUrl>
         <PackageLicenseUrl>https://github.com/FreeGameIsAFreeGame/Scraper-PlayStationPlus/blob/master/LICENSE</PackageLicenseUrl>
         <RepositoryUrl>https://github.com/FreeGameIsAFreeGame/Scraper-PlayStationPlus</RepositoryUrl>
-        <PackageVersion>1.0.1</PackageVersion>
+        <PackageVersion>1.0.2</PackageVersion>
     </PropertyGroup>
 
     <ItemGroup>
