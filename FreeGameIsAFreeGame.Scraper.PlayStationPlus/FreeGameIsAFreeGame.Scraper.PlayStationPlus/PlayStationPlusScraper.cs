@@ -17,19 +17,21 @@ namespace FreeGameIsAFreeGame.Scraper.PlayStationPlus
         private const string URL =
             "https://store.playstation.com/valkyrie-api/en/US/999/container/STORE-MSF77008-PSPLUSFREEGAMES?size=30&bucket=games&start=0";
 
-        private readonly IBrowsingContext context;
-        private readonly ILogger logger;
+        private IBrowsingContext context;
+        private ILogger logger;
 
         string IScraper.Identifier => "PlayStationPlusFree";
-        string IScraper.DisplayName => "PlayStation Plus";
 
-        public PlayStationPlusScraper()
+        /// <inheritdoc />
+        public Task Initialize(CancellationToken token)
         {
             context = BrowsingContext.New(Configuration.Default
                 .WithDefaultLoader()
                 .WithDefaultCookies());
 
             logger = LogManager.GetLogger(GetType().FullName);
+
+            return Task.CompletedTask;
         }
 
         async Task<IEnumerable<IDeal>> IScraper.Scrape(CancellationToken token)
@@ -80,8 +82,9 @@ namespace FreeGameIsAFreeGame.Scraper.PlayStationPlus
                     continue;
 
                 Availability availability = plusUserSku.Availability;
-                Deal freeGame = new Deal()
+                Deal freeGame = new Deal
                 {
+                    Discount = 100,
                     Image = included.Attributes.ThumbnailUrlBase,
                     Link = $"https://store.playstation.com/en-us/product/{included.Attributes.DefaultSkuId}",
                     Title = included.Attributes.Name,
@@ -97,6 +100,13 @@ namespace FreeGameIsAFreeGame.Scraper.PlayStationPlus
         private DateTime? GetUtcDateTime(DateTimeOffset? dto)
         {
             return dto?.UtcDateTime ?? default;
+        }
+
+        /// <inheritdoc />
+        public Task Dispose()
+        {
+            context?.Dispose();
+            return Task.CompletedTask;
         }
     }
 }
